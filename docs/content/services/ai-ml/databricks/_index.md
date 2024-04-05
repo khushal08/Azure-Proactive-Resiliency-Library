@@ -9,39 +9,40 @@ draft = false
 
 The presented resiliency recommendations in this guidance include Azure Databricks and dependent resources and settings.
 
-## Summary of Recommendations
-
+## Summary of Recommendation
 {{< table style="table-striped" >}}
-| Recommendation                                                                                                                                                                                                                     | Impact |  State   | ARG Query Available |
-| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----: | :-----:  | :-----------------: |
-| [DBW-1 - Databricks runtime version is not latest and/or is not LTS version](#dbw-1---databricks-runtime-version-is-not-latest-or-is-not-lts-version)                                                                              | Medium | Verified |         No         |
-| [DBW-2 - Use Databricks Pools](#dbw-2---use-databricks-pools)                                                                                                                                                                      |  High  | Verified |         No         |
-| [DBW-3 - Use SSD backed VMs for Worker VM Type and Driver type](#dbw-3---use-ssd-backed-vms-for-worker-vm-type-and-driver-type)                                                                                                    | Medium | Verified |         No         |
-| [DBW-4 - Enable autoscaling for batch workloads](#dbw-4---enable-autoscaling-for-batch-workloads)                                                                                                                                  |  High  | Verified |         No         |
-| [DBW-5 - Enable autoscaling for SQL warehouse](#dbw-5---enable-autoscaling-for-sql-warehouse)                                                                                                                                      |  High  | Verified |         No         |
-| [DBW-6 - Use Delta Live Tables enhanced autoscaling](#dbw-6---use-delta-live-tables-enhanced-autoscaling)                                                                                                                          | Medium | Verified |         No         |
-| [DBW-7 - Automatic Job Termination is enabled, ensure there are no user-defined local processes](#dbw-7---automatic-job-termination-is-enabled-ensure-there-are-no-user-defined-local-processes)                                   | Medium | Verified |         No         |
-| [DBW-8 - Enable Logging-Cluster log delivery](#dbw-8---enable-logging-cluster-log-delivery)                                                                                                                                        | Medium | Verified |         No         |
-| [DBW-9 - Use Delta Lake for higher reliability](#dbw-9---use-delta-lake-for-higher-reliability)                                                                                                                                    |  High  | Verified |         No         |
-| [DBW-10 - Use Photon Acceleration](#dbw-10---use-photon-acceleration)                                                                                                                                                              |  Low   | Verified |         No         |
-| [DBW-11 - Automatically rescue invalid or nonconforming data with Databricks Auto Loader or Delta Live Tables](#dbw-11---automatically-rescue-invalid-or-nonconforming-data-with-databricks-auto-loader-or-delta-live-tables)      |  Low   | Verified |         No         |
-| [DBW-12 - Configure jobs for automatic retries and termination](#dbw-12---configure-jobs-for-automatic-retries-and-termination)                                                                                                    |  High  | Verified |         No         |
-| [DBW-13 - Use a scalable and production-grade model serving infrastructure](#dbw-13---use-a-scalable-and-production-grade-model-serving-infrastructure)                                                                            |  High  | Verified |         No         |
-| [DBW-14 - Use a layered storage architecture](#dbw-14---use-a-layered-storage-architecture)                                                                                                                                        | Medium | Verified |         No         |
-| [DBW-15 - Improve data integrity by reducing data redundancy](#dbw-15---improve-data-integrity-by-reducing-data-redundancy)                                                                                                        |  Low   | Verified |         No         |
-| [DBW-16 - Actively manage schemas](#dbw-16---actively-manage-schemas)                                                                                                                                                              | Medium | Verified |         No         |
-| [DBW-17 - Use constraints and data expectations](#dbw-17---use-constraints-and-data-expectations)                                                                                                                                  |  Low   | Verified |         No         |
-| [DBW-18 - Create regular backups](#dbw-18---create-regular-backups)                                                                                                                                                                |  Low   | Verified |         No         |
-| [DBW-19 - Recover from Structured Streaming query failures](#dbw-19---recover-from-structured-streaming-query-failures)                                                                                                            |  High  | Verified |         No         |
-| [DBW-20 - Recover ETL jobs based on Delta time travel](#dbw-20---recover-etl-jobs-based-on-delta-time-travel)                                                                                                                      | Medium | Verified |         No         |
-| [DBW-21 - Use Databricks Workflows and built-in recovery](#dbw-21---use-databricks-workflows-and-built-in-recovery)                                                                                                                |  Low   | Verified |         No         |
-| [DBW-22 - Configure a disaster recovery pattern](#dbw-22---configure-a-disaster-recovery-pattern)                                                                                                                                  |  High  | Preview  |         No         |
-| [DBW-23 - Automate deployments and workloads](#dbw-23---automate-deployments-and-workloads)                                                                                                                                        |  High  | Preview  |         No         |
-| [DBW-24 - Set up monitoring, alerting, and logging](#dbw-24---set-up-monitoring-alerting-and-logging)                                                                                                                              |  High  | Preview  |         No         |
-| [DBW-25 - Deploy workspaces in separate Subscriptions](#dbw-25---deploy-workspaces-in-separate-subscriptions)                                                                                                                      |  High  | Preview  |         No         |
-| [DBW-26 - Isolate each workspace in its own Vnet](#dbw-26---isolate-each-workspace-in-its-own-vnet)                                                                                                                                |  High  | Preview  |         No         |
-| [DBW-27 - Do not Store any Production Data in Default DBFS Folders](#dbw-27---do-not-store-any-production-data-in-default-dbfs-folders)                                                                                            |  High  | Preview  |         No         |
-| [DBW-28 - Do not use Azure Sport VMs for critical Production workloads](#dbw-28---do-not-use-azure-sport-vms-for-critical-production-workloads)                                                                                    |  High  | Preview  |         No         |
+| Recommendation                                                                                                                                                                                                                |        Category        | Impact |  State   | ARG Query Available |
+|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------:|:------:|:--------:|:-------------------:|
+| [DBW-1 - Databricks runtime version is not latest and/or is not LTS version](#dbw-1---databricks-runtime-version-is-not-latest-or-is-not-lts-version)                                                                         |       Governance       | Medium | Verified |         No          |
+| [DBW-2 - Use Databricks Pools](#dbw-2---use-databricks-pools)                                                                                                                                                                 |   System Efficiency    |  High  | Verified |         No          |
+| [DBW-3 - Use SSD backed VMs for Worker VM Type and Driver type](#dbw-3---use-ssd-backed-vms-for-worker-vm-type-and-driver-type)                                                                                               |   System Efficiency    | Medium | Verified |         No          |
+| [DBW-4 - Enable autoscaling for batch workloads](#dbw-4---enable-autoscaling-for-batch-workloads)                                                                                                                             |   System Efficiency    |  High  | Verified |         No          |
+| [DBW-5 - Enable autoscaling for SQL warehouse](#dbw-5---enable-autoscaling-for-sql-warehouse)                                                                                                                                 |   System Efficiency    |  High  | Verified |         No          |
+| [DBW-6 - Use Delta Live Tables enhanced autoscaling](#dbw-6---use-delta-live-tables-enhanced-autoscaling)                                                                                                                     |   System Efficiency    | Medium | Verified |         No          |
+| [DBW-7 - Automatic Job Termination is enabled, ensure there are no user-defined local processes](#dbw-7---automatic-job-termination-is-enabled-ensure-there-are-no-user-defined-local-processes)                              |      Availability      | Medium | Verified |         No          |
+| [DBW-8 - Enable Logging-Cluster log delivery](#dbw-8---enable-logging-cluster-log-delivery)                                                                                                                                   |       Monitoring       | Medium | Verified |         No          |
+| [DBW-9 - Use Delta Lake for higher reliability](#dbw-9---use-delta-lake-for-higher-reliability)                                                                                                                               |      Availability      |  High  | Verified |         No          |
+| [DBW-10 - Use Photon Acceleration](#dbw-10---use-photon-acceleration)                                                                                                                                                         |      Availability      |  Low   | Verified |         No          |
+| [DBW-11 - Automatically rescue invalid or nonconforming data with Databricks Auto Loader or Delta Live Tables](#dbw-11---automatically-rescue-invalid-or-nonconforming-data-with-databricks-auto-loader-or-delta-live-tables) | Application Resilience |  Low   | Verified |         No          |
+| [DBW-12 - Configure jobs for automatic retries and termination](#dbw-12---configure-jobs-for-automatic-retries-and-termination)                                                                                               |      Availability      |  High  | Verified |         No          |
+| [DBW-13 - Use a scalable and production-grade model serving infrastructure](#dbw-13---use-a-scalable-and-production-grade-model-serving-infrastructure)                                                                       |   System Efficiency    |  High  | Verified |         No          |
+| [DBW-14 - Use a layered storage architecture](#dbw-14---use-a-layered-storage-architecture)                                                                                                                                   | Application Resilience | Medium | Verified |         No          |
+| [DBW-15 - Improve data integrity by reducing data redundancy](#dbw-15---improve-data-integrity-by-reducing-data-redundancy)                                                                                                   | Application Resilience |  Low   | Verified |         No          |
+| [DBW-16 - Actively manage schemas](#dbw-16---actively-manage-schemas)                                                                                                                                                         |       Governance       | Medium | Verified |         No          |
+| [DBW-17 - Use constraints and data expectations](#dbw-17---use-constraints-and-data-expectations)                                                                                                                             | Application Resilience |  Low   | Verified |         No          |
+| [DBW-18 - Create regular backups](#dbw-18---create-regular-backups)                                                                                                                                                           |   Disaster Recovery    |  Low   | Verified |         No          |
+| [DBW-19 - Recover from Structured Streaming query failures](#dbw-19---recover-from-structured-streaming-query-failures)                                                                                                       |      Availability      |  High  | Verified |         No          |
+| [DBW-20 - Recover ETL jobs based on Delta time travel](#dbw-20---recover-etl-jobs-based-on-delta-time-travel)                                                                                                                 |   Disaster Recovery    | Medium | Verified |         No          |
+| [DBW-21 - Use Databricks Workflows and built-in recovery](#dbw-21---use-databricks-workflows-and-built-in-recovery)                                                                                                           |   Disaster Recovery    |  Low   | Verified |         No          |
+| [DBW-22 - Configure a disaster recovery pattern](#dbw-22---configure-a-disaster-recovery-pattern)                                                                                                                             |   Disaster Recovery    |  High  | Preview  |         No          |
+| [DBW-23 - Automate deployments and workloads](#dbw-23---automate-deployments-and-workloads)                                                                                                                                   |       Automation       |  High  | Preview  |         No          |
+| [DBW-24 - Set up monitoring, alerting, and logging](#dbw-24---set-up-monitoring-alerting-and-logging)                                                                                                                         |       Monitoring       |  High  | Preview  |         No          |
+| [DBW-25 - Deploy workspaces in separate Subscriptions](#dbw-25---deploy-workspaces-in-separate-subscriptions)                                                                                                                 |   System Efficiency    |  High  | Preview  |         No          |
+| [DBW-26 - Isolate each workspace in its own Vnet](#dbw-26---isolate-each-workspace-in-its-own-vnet)                                                                                                                           |   System Efficiency    |  High  | Preview  |         No          |
+| [DBW-27 - Do not Store any Production Data in Default DBFS Folders](#dbw-27---do-not-store-any-production-data-in-default-dbfs-folders)                                                                                       |      Availability      |  High  | Preview  |         No          |
+| [DBW-28 - Do not use Azure Sport VMs for critical Production workloads](#dbw-28---do-not-use-azure-sport-vms-for-critical-production-workloads)                                                                               |      Availability      |  High  | Preview  |         No          |
+| [DBW-29 - Migrate Legacy Workspaces](#dbw-29---migrate-legacy-workspaces)                                                                               |      Availability      |  High  | Preview  |         No          |
+| [DBW-30 - Define alternate VM SKUs](#dbw-30---define-alternate-vm-skus)                                                                               |      System Efficiency      |  Medium  | Preview  |         No          |
 {{< /table >}}
 
 {{< alert style="info" >}}
@@ -71,7 +72,7 @@ Use 12.2 LTS later. Databricks recommends that you migrate your workloads in the
 
 - [Databricks runtime support lifecycles](https://learn.microsoft.com/en-us/azure/databricks/release-notes/runtime/databricks-runtime-ver)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -95,7 +96,7 @@ Databricks pools are a standard feature of the service, pre-provisions VM’s in
 
 - [Best practices for reliability](https://learn.microsoft.com/en-us/azure/databricks/lakehouse-architecture/reliability/best-practices)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -109,7 +110,7 @@ Databricks pools are a standard feature of the service, pre-provisions VM’s in
 
 **Category: System Efficiency**
 
-**Impact: Low**
+**Impact: Medium**
 
 **Guidance**
 
@@ -125,7 +126,7 @@ Standard SSDs are acceptable for some Production workloads as well.
 
 - [Azure managed disk types](https://learn.microsoft.com/azure/virtual-machines/disks-types#premium-ssd)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -151,7 +152,7 @@ For streaming workloads, Databricks recommends using Delta Live Tables with auto
 
 - [Best practices for reliability](https://learn.microsoft.com/en-us/azure/databricks/lakehouse-architecture/reliability/best-practices#enable-autoscaling-for-batch-workloadss)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -177,7 +178,7 @@ To handle more concurrent users for a given warehouse, increase the cluster coun
 
 - [Best practices for reliability](https://learn.microsoft.com/en-us/azure/databricks/lakehouse-architecture/reliability/best-practices#enable-autoscaling-for-sql-warehouse)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -195,13 +196,14 @@ To handle more concurrent users for a given warehouse, increase the cluster coun
 
 **Guidance**
 
-A data disk is a managed disk that's attached to a virtual machine to store application data, or other data you need to keep. Data disks are registered as SCSI drives and are labeled with a letter that you choose. Hosting you data on a data disk also helps with flexibility when backuping or restoring data, as well as migrating the disk without having to migrate the entire Virtual Machine and Operating System. You will be able to also select a different disk sku, with different type, size, and performance that meet your requirements.
+Databricks enhanced autoscaling optimizes cluster utilization by automatically allocating cluster resources based on workload volume, with minimal impact on the data processing latency of your pipelines.
 
 **Resources**
 
-- [Best practices for reliability](https://learn.microsoft.com/en-us/azure/databricks/lakehouse-architecture/reliability/best-practices)
+- [Best practices for reliability](https://learn.microsoft.com/azure/databricks/lakehouse-architecture/reliability/best-practices)
+- [Databricks enhanced autoscaling](https://learn.microsoft.com/azure/databricks/delta-live-tables/settings#use-autoscaling-to-increase-efficiency-and-reduce-resource-usage)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -227,7 +229,7 @@ However, The auto termination feature monitors only Spark jobs, not user-defined
 
 - [Best practices for reliability?](https://learn.microsoft.com/en-us/azure/databricks/lakehouse-architecture/reliability/best-practices)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -253,7 +255,7 @@ The destination of the logs depends on the cluster ID. If the specified destinat
 
 - [Create a cluster](https://learn.microsoft.com/en-us/azure/databricks/clusters/configure#cluster-log-delivery)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -277,7 +279,7 @@ Delta Lake is an open source storage format that brings reliability to data lake
 
 - [Best practices for reliability](https://learn.microsoft.com/en-us/azure/databricks/lakehouse-architecture/reliability/best-practices)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -303,7 +305,7 @@ In the Databricks Lakehouse, Photon, a native vectorized engine entirely written
 
 - [Best practices for reliability](https://learn.microsoft.com/en-us/azure/databricks/lakehouse-architecture/reliability/best-practices#use-apache-spark-or-photon-for-distributed-compute)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -330,7 +332,7 @@ Invalid or nonconforming data can lead to crashes of workloads that rely on an e
 
 - [Best practices for reliability](https://learn.microsoft.com/en-us/azure/databricks/lakehouse-architecture/reliability/best-practices)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -355,7 +357,7 @@ Model serving provides a scalable and production-grade model real-time serving i
 
 - [Best practices for reliability](https://learn.microsoft.com/en-us/azure/databricks/lakehouse-architecture/reliability/best-practices)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -367,7 +369,7 @@ Model serving provides a scalable and production-grade model real-time serving i
 
 ### DBW-13 - Use a scalable and production-grade model serving infrastructure
 
-**Category: System EFficiency**
+**Category: System Efficiency**
 
 **Impact: High**
 
@@ -380,7 +382,7 @@ Model serving provides a scalable and production-grade model real-time serving i
 
 - [Best practices for reliability](https://learn.microsoft.com/en-us/azure/databricks/lakehouse-architecture/reliability/best-practices)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -412,7 +414,7 @@ The final layer should only contain high-quality data and can be fully trusted f
 
 - [Best practices for reliability](https://learn.microsoft.com/en-us/azure/databricks/lakehouse-architecture/reliability/best-practices)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -436,7 +438,7 @@ Copying or duplicating data creates data redundancy and will lead to lost integr
 
 - [Best practices for reliability](https://learn.microsoft.com/en-us/azure/databricks/lakehouse-architecture/reliability/best-practices)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -463,7 +465,7 @@ Uncontrolled schema changes can lead to invalid data and failing jobs that use t
 
 - [Best practices for reliability](https://learn.microsoft.com/en-us/azure/databricks/lakehouse-architecture/reliability/best-practices)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -489,7 +491,7 @@ To further improve this handling, Delta Live Tables supports Expectations: Expec
 
 - [Best practices for reliability](https://learn.microsoft.com/en-us/azure/databricks/lakehouse-architecture/reliability/best-practices#use-constraints-and-data-expectations)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -513,7 +515,7 @@ To recover from a failure, regular backups need to be available. The Databricks 
 
 - [Best practices for reliability](https://learn.microsoft.com/en-us/azure/databricks/lakehouse-architecture/reliability/best-practices#create-regular-backups)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -537,7 +539,7 @@ Structured Streaming provides fault-tolerance and data consistency for streaming
 
 - [Best practices for reliability](https://learn.microsoft.com/en-us/azure/databricks/lakehouse-architecture/reliability/best-practices#recover-from-structured-streaming-query-failures)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -561,7 +563,7 @@ Despite thorough testing, a job in production can fail or produce some unexpecte
 
 - [Best practices for reliability](https://learn.microsoft.com/en-us/azure/databricks/lakehouse-architecture/reliability/best-practices#recover-etl-jobs-based-on-delta-time-travel)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -585,7 +587,7 @@ Databricks Workflows are built for recovery. When a task in a multi-task job fai
 
 - [Best practices for reliability](https://learn.microsoft.com/en-us/azure/databricks/lakehouse-architecture/reliability/best-practices)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -609,7 +611,7 @@ A clear disaster recovery pattern is critical for a cloud-native data analytics 
 
 - [Azure Databricks Best Practices](https://github.com/Azure/AzureDatabricksBestPractices/tree/master)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -633,7 +635,7 @@ The Databricks Terraform provider manages Azure Databricks workspaces and the as
 
 - [Best practices for operational excellence](https://learn.microsoft.com/en-us/azure/databricks/lakehouse-architecture/operational-excellence/best-practices#2-automate-deployments-and-workloads)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -657,7 +659,7 @@ The Databricks Terraform provider manages Azure Databricks workspaces and the as
 
 - [Best practices for operational excellence](https://learn.microsoft.com/en-us/azure/databricks/lakehouse-architecture/operational-excellence/best-practices#system-monitoring)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -681,7 +683,7 @@ Customers commonly partition workspaces based on teams or departments and arrive
 
 - [Azure Databricks Best Practices](https://github.com/Azure/AzureDatabricksBestPractices/blob/master/toc.md#deploy-workspaces-in-multiple-subscriptions-to-honor-azure-capacity-limits)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -705,7 +707,7 @@ While you can deploy more than one Workspace in a VNet by keeping the associated
 
 - [Azure Databricks Best Practices](https://github.com/Azure/AzureDatabricksBestPractices/blob/master/toc.md#consider-isolating-each-workspace-in-its-own-vnet)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -732,7 +734,7 @@ This recommendation is driven by security and data availability concerns. Every 
 
 - [Azure Databricks Best Practices](https://github.com/Azure/AzureDatabricksBestPractices/blob/master/toc.md#do-not-store-any-production-data-in-default-dbfs-foldersr)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
@@ -756,11 +758,79 @@ Azure Spot VMs are not recommended for critical production workloads that requir
 
 - [Use Azure Spot Virtual Machines](https://learn.microsoft.com/en-us/azure/virtual-machines/spot-vms)
 
-**Resource Graph Query/Scripts**
+**Resource Graph Query**
 
 {{< collapse title="Show/Hide Query/Script" >}}
 
 {{< code lang="sql" file="code/dbw-28/dbw-28.kql" >}} {{< /code >}}
+
+{{< /collapse >}}
+
+<br><br>
+
+### DBW-29 - Migrate Legacy Workspaces
+
+**Category: Availability**
+
+**Impact: High**
+
+**Guidance**
+
+Azure Databricks initially launched with shared control plane, where some regions shared control plane resources with another region. This shared control plane model then evolved to dedicated in-region control planes (e.g. North Europe, Central US, East US) to ensure a regional outage does not impact customer workspaces in other regions.
+
+Regions that now have their dedicated control plane have workspaces running in two configurations:
+
+- Legacy Workspaces - these are workspaces created before the dedicated control plane was available.
+- Workspaces - these are workspaces created after the dedicated control plane was available.
+
+The path for migrating legacy workspaces to use the in-region control plane is to **redeploy**.
+
+Review the list of network addresses used in each region in the Microsoft documentation and determine which regions are sharing a control plane. For example, we can look up Canada East in the table and see that the address for its SCC relay is "tunnel.canadacentral.azuredatabricks.net". Since the relay address is in Canada Central, we know that "Canada East" is using the control plane in another region.
+
+Some regions list two different addresses in the Azure Databricks Control plane networking table. For example, North Europe lists both "tunnel.westeurope.azuredatabricks.net" and "tunnel.northeuropec2.azuredatabricks.net" for the SCC relay address. This is because North Europe once shared the West Europe control plane, but it now has its own independent control plane. There are still some old, legacy workspaces in North Europe tied to the old control plane, but all workspaces created since the switch-over will be using the new control plane.
+
+Once a new Azure Databricks workspace is created, it should be configured to match the original legacy workspace.  Databricks, Inc.
+recommends that customers use the Databricks Terraform Exporter for both the initial copy and for maintaining the workspace. However, this exporter is still in the experimental phase. For customers that do not trust experimental projects or for customers that do not want to use Terraform, they can use the "Migrate" tool that Databricks, Inc. maintains with GitHub. This is a collection of scripts that will export all of the objects (notebooks, cluster definitions, metadata, *etc.*) from one workspace and then import them to another workspace.  Customers can use the "Migrate" tool to initially populate the new
+workspace and then use their CI/CD deployment process to keep the workspace in sync.
+
+Pro Tip: If you need to determine where the control plane is located for a particular Databricks workspace, you can use the "nslookup" console command on Windows or Linux with the workspace address.  The result will tell you where the control plane is located.
+
+**Resources**
+
+- [Azure Databricks regions - IP addresses and domains](https://learn.microsoft.com/azure/databricks/resources/supported-regions#--ip-addresses-and-domains)
+- [Migrate - maintained by Databricks Inc.](https://github.com/databrickslabs/migrate)
+- [Databricks Terraform Exporter - maintained by Databricks Inc. (Experimental)](https://registry.terraform.io/providers/databricks/databricks/latest/docs/guides/experimental-exporter)
+
+<br><br>
+
+### DBW-30 - Define alternate VM SKUs
+
+**Category: System Efficiency**
+
+**Impact: Medium**
+
+**Guidance**
+
+Azure Databricks availability planning should include plans for swapping VM SKUs based on capacity constraints.
+
+Azure Databricks creates its VMs as regional VMs and depends on Azure to choose the best availability zone for the VM.  In the past, there have been rare instances where compute can not be allocated due to zonal or regional VM constraints.  Thus, resulting in a "CLOUD PROVIDER" error.
+
+In these situations, customers have two options:
+
+- Use Databricks Pools.  To manage costs, customers should be careful when selecting the size of their pools. They will have to pay for the Azure VMs even when they are idle in the pool.  Databricks pool can contain only one SKU of VMs; you cannot mix multiple SKUs in the same pool. To reduce the number of pools that customers need to manage, they should settle on a few SKUs that will service their jobs instead of using a different VM
+SKU for each job.
+- Plan for alternative SKUs in their preferred region(s).
+
+**Resources**
+
+- [Compute configuration best practices](https://learn.microsoft.com/azure/databricks/compute/cluster-config-best-practices)
+- [GPU-enabled compute](https://learn.microsoft.com/azure/databricks/compute/gpu)
+
+**Resource Graph Query**
+
+{{< collapse title="Show/Hide Query/Script" >}}
+
+{{< code lang="sql" file="code/dbw-30/dbw-30.kql" >}} {{< /code >}}
 
 {{< /collapse >}}
 
